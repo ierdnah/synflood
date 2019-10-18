@@ -137,13 +137,14 @@ int main(int argc, char **argv){
 		if(ipv4 == -1)
 			fprintf(stderr, "ERROR: libnet_build_ipv4: %s", libnet_geterror(net));
 		
-		sockWriteBytes = libnet_write(net);
-		if(sockWriteBytes == -1){
-			fprintf(stderr, "ERROR: libnet_write: %s", libnet_geterror(net));
+		while (1) {sockWriteBytes = libnet_write(net);
+		    if(sockWriteBytes == -1){
+		            fprintf(stderr, "ERROR: libnet_write: %s", libnet_geterror(net));
 #ifdef EXIT_ON_FAIL
 			exit(1);
 #endif
-		}
+		    }
+                }
 		
 		//libnet_destroy(net);
 		usleep(USLEEP);
